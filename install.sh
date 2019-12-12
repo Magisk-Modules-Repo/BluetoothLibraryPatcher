@@ -224,7 +224,7 @@ hex_patch() {
 patch_lib() {
   ui_print "- Patching it"
   hex_patch $path $pre_hex $post_hex
-  if [ -n $path2 ] ; then
+  if [ "$library"=="bluetooth.default.so" ] ; then
     hex_patch $path2 $pre_hex2 $post_hex2
   fi
 }
