@@ -11,6 +11,10 @@ So it is expected to work with other devices.
 
 It support Android 10 and should also work with Pie and Oreo (8.0/8.1).
 
+## Credits
+
+• @topjohnwu for magisk and magiskboot used here for its easy-to-use hexpatcher
+
 ## Changelog
 
 ### v1.0
