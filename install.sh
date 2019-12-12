@@ -122,9 +122,9 @@ REPLACE="
 # Set what you want to display when installing your module
 
 print_modname() {
-  ui_print "******************************"
-  ui_print "     Libbluetooth patcher     "
-  ui_print "******************************"
+  ui_print "*******************************"
+  ui_print "   Bluetooth Library Patcher   "
+  ui_print "*******************************"
 }
 
 # Copy/extract your module files into $MODPATH in on_install.
@@ -183,7 +183,7 @@ check_os_and_set_vars() {
     post_hex="88000035E8031F2A28050035"
     post_hex2="0978019009B9002032E07748"
   elif [ "$os" == "8.0.0" ] ; then
-    ui_print "- Android Oreo 8.1 detected"
+    ui_print "- Android Oreo 8.0 detected"
     library="bluetooth.default.so"
     path="$MODPATH/system/lib64/hw/bluetooth.default.so"
     path2="$MODPATH/system/lib/hw/bluetooth.default.so"
