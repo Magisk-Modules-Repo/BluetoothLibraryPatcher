@@ -218,13 +218,15 @@ extract() {
 }
 
 hex_patch() {
-  /data/adb/magisk/magiskboot hexpatch $1 $2 $3 > /dev/null 2>&1
+  /data/adb/magisk/magiskboot hexpatch $1 $2 $3 2>&1
 }
 
 patch_lib() {
   ui_print "- Patching it"
-  hex_patch $path $pre_hex $post_hex
-  if [ "$library"=="bluetooth.default.so" ] ; then
-    hex_patch $path2 $pre_hex2 $post_hex2
+  if [ ! echo $(hex_patch $path $pre_hex $post_hex) | grep -Fq "[$pre_hex]->[$post_hex]" ] ; then
+    abort "- Library not supported!"
+  fi
+  if [ "$library"=="bluetooth.default.so" ] && [ ! echo $(hex_patch $path2 $pre_hex2 $post_hex2) | grep -Fq "[$pre_hex2]->[$post_hex2]" ] ; then
+    abort "- Library not supported!"
   fi
 }
