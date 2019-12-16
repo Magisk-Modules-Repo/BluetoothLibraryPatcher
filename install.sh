@@ -196,15 +196,15 @@ check_os_and_set_vars() {
 }
 
 check_lib() {
-  if [ "$library"=="libbluetooth.so" ] && [ ! -f "/sbin/.magisk/mirror/system/lib64/$library" ] ; then
+  if [ "$library" == "libbluetooth.so" ] && [ ! -f "/sbin/.magisk/mirror/system/lib64/$library" ] ; then
     abort "- No $library library found!"
-  elif [ "$library"=="bluetooth.default.so" ] && [ [ ! -f "/sbin/.magisk/mirror/system/lib64/hw/$library" ] ||  [ ! -f "/sbin/.magisk/mirror/system/lib64/hw/$library" ] ] ; then
+  elif [ "$library" == "bluetooth.default.so" ] && [ [ ! -f "/sbin/.magisk/mirror/system/lib64/hw/$library" ] ||  [ ! -f "/sbin/.magisk/mirror/system/lib64/hw/$library" ] ] ; then
     abort "- No $library libraries found!"
   fi
 }
 
 extract() {
-  if [ "$library"=="libbluetooth.so" ] ; then
+  if [ "$library" == "libbluetooth.so" ] ; then
     mkdir -p $MODPATH/system/lib64
     ui_print "- Extracting $library library from system"
     cp -f /sbin/.magisk/mirror/system/lib64/$library $path
@@ -225,7 +225,7 @@ patch_lib() {
   if [ ! echo $(hex_patch $path $pre_hex $post_hex) | grep -Fq "[$pre_hex]->[$post_hex]" ] ; then
     abort "- Library not supported!"
   fi
-  if [ "$library"=="bluetooth.default.so" ] && [ ! echo $(hex_patch $path2 $pre_hex2 $post_hex2) | grep -Fq "[$pre_hex2]->[$post_hex2]" ] ; then
+  if [ "$library" == "bluetooth.default.so" ] && [ ! echo $(hex_patch $path2 $pre_hex2 $post_hex2) | grep -Fq "[$pre_hex2]->[$post_hex2]" ] ; then
     abort "- Library not supported!"
   fi
 }
