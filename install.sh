@@ -160,6 +160,13 @@ set_permissions() {
 # You can add more functions to assist your custom script code
 
 check_os_and_set_vars() {
+  if [ "$BOOTMODE" == "true" ] ; then
+    ui_print "- Magisk Manager installation"
+    sys_path="/sbin/.magisk/mirror/system"
+  else
+    ui_print "- Recovery installation"
+    sys_path="/system"
+  fi
   if [ $API == 29 ] ; then
     ui_print "- Android 10 detected"
     library="libbluetooth.so"
@@ -196,9 +203,9 @@ check_os_and_set_vars() {
 }
 
 check_lib() {
-  if [ "$library" == "libbluetooth.so" ] && [ ! -f "/sbin/.magisk/mirror/system/lib64/$library" ] ; then
+  if [ "$library" == "libbluetooth.so" ] && [ ! -f "$sys_path/lib64/$library" ] ; then
     abort "- No $library library found!"
-  elif [ "$library" == "bluetooth.default.so" ] && [ [ ! -f "/sbin/.magisk/mirror/system/lib64/hw/$library" ] ||  [ ! -f "/sbin/.magisk/mirror/system/lib64/hw/$library" ] ] ; then
+  elif [ "$library" == "bluetooth.default.so" ] && [ [ ! -f "$sys_path/lib64/hw/$library" ] ||  [ ! -f "$sys_path/lib64/hw/$library" ] ] ; then
     abort "- No $library libraries found!"
   fi
 }
@@ -207,12 +214,12 @@ extract() {
   if [ "$library" == "libbluetooth.so" ] ; then
     mkdir -p $MODPATH/system/lib64
     ui_print "- Extracting $library library from system"
-    cp -f /sbin/.magisk/mirror/system/lib64/$library $path
+    cp -f $sys_path/lib64/$library $path
   else
     mkdir -p $MODPATH/system/lib64/hw $MODPATH/system/lib/hw
     ui_print "- Extracting $library libraries from system"
-    cp -f /sbin/.magisk/mirror/system/lib64/hw/$library $path
-    cp -f /sbin/.magisk/mirror/system/lib/hw/$library $path2
+    cp -f $sys_path/lib64/hw/$library $path
+    cp -f $sys_path/lib/hw/$library $path2
   fi
 }
 
