@@ -160,20 +160,19 @@ set_permissions() {
 # You can add more functions to assist your custom script code
 
 check_os_and_set_vars() {
-  os=$(grep ro.build.version.release= /sbin/.magisk/mirror/system/build.prop | cut -d "=" -f2)
-  if [ "$os" == "10" ] ; then
+  if [ $API == 29 ] ; then
     ui_print "- Android 10 detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/libbluetooth.so"
     pre_hex="C8000034F4031F2AF3031F2AE8030032"
     post_hex="C8000035F4031F2AF3031F2AE8031F2A"
-  elif [ "$os" == "9" ] ; then
+  elif [ $API == 28 ] ; then
     ui_print "- Android Pie detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/libbluetooth.so"
     pre_hex="88000034E803003248070035"
     post_hex="88000035E8031F2A48070035"
-  elif [ "$os" == "8.1.0" ] ; then
+  elif [ $API == 27 ] ; then
     ui_print "- Android Oreo 8.1 detected"
     library="bluetooth.default.so"
     path="$MODPATH/system/lib64/hw/bluetooth.default.so"
@@ -182,7 +181,7 @@ check_os_and_set_vars() {
     pre_hex2="0978019009B1012032E07748"
     post_hex="88000035E8031F2A28050035"
     post_hex2="0978019009B9002032E07748"
-  elif [ "$os" == "8.0.0" ] ; then
+  elif [ $API == 26 ] ; then
     ui_print "- Android Oreo 8.0 detected"
     library="bluetooth.default.so"
     path="$MODPATH/system/lib64/hw/bluetooth.default.so"
