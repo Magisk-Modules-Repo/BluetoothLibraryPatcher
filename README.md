@@ -23,3 +23,7 @@ It supports Android 10 and should also work with Pie and Oreo (8.0/8.1).
 ### v1.1
 
 - Add verification point, to know if we successfully hexpatch
+
+### v1.2
+
+- Add recovery installation support
