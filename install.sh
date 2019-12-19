@@ -172,13 +172,13 @@ check_os_and_set_vars() {
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/libbluetooth.so"
     pre_hex="C8000034F4031F2AF3031F2AE8030032"
-    post_hex="C8000035F4031F2AF3031F2AE8031F2A"
+    post_hex="1F2003D5F4031F2AF3031F2AE8031F2A"
   elif [ $API == 28 ] ; then
     ui_print "- Android Pie detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/libbluetooth.so"
     pre_hex="88000034E803003248070035"
-    post_hex="88000035E8031F2A48070035"
+    post_hex="1F2003D5E8031F2A48070035"
   elif [ $API == 27 ] ; then
     ui_print "- Android Oreo 8.1 detected"
     library="bluetooth.default.so"
@@ -186,8 +186,8 @@ check_os_and_set_vars() {
     path2="$MODPATH/system/lib/hw/bluetooth.default.so"
     pre_hex="88000034E803003228050035"
     pre_hex2="0978019009B1012032E07748"
-    post_hex="88000035E8031F2A28050035"
-    post_hex2="0978019009B9002032E07748"
+    post_hex="1F2003D5E8031F2A28050035"
+    post_hex2="0978019000BF002032E07748"
   elif [ $API == 26 ] ; then
     ui_print "- Android Oreo 8.0 detected"
     library="bluetooth.default.so"
@@ -195,8 +195,8 @@ check_os_and_set_vars() {
     path2="$MODPATH/system/lib/hw/bluetooth.default.so"
     pre_hex="88000034E803003228050035"
     pre_hex2="0190087808B1012031E07548"
-    post_hex="88000035E8031F2A28050035"
-    post_hex2="0190087808B9002031E07548"
+    post_hex="1F2003D5E8031F2A28050035"
+    post_hex2="0190087800BF002031E07548"
   else
     abort "- Only for Android 10, Pie or Oreo!"
   fi
