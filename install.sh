@@ -165,7 +165,7 @@ check_os_and_set_vars() {
     sys_path="/sbin/.magisk/mirror/system"
   else
     ui_print "- Recovery installation"
-	if [ -d /system/system ] ; then
+    if [ -d /system/system ] ; then
       sys_path="/system/system"
     else
       sys_path="/system"
