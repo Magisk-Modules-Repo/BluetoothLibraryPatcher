@@ -31,3 +31,7 @@ It supports Android 10 and should also work with Pie and Oreo (8.0/8.1).
 ### v1.3
 
 - Modify hexpatch (more safer patch)
+
+### v1.4
+
+- Add support for chinese variants
