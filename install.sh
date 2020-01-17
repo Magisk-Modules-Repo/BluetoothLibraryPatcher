@@ -165,14 +165,24 @@ check_os_and_set_vars() {
     sys_path="/sbin/.magisk/mirror/system"
   else
     ui_print "- Recovery installation"
-    sys_path="/system"
+	if [ -d /system/system ] ; then
+      sys_path="/system/system"
+    else
+      sys_path="/system"
+    fi
   fi
+  model=$(grep ro.build.vendor.model= $sys_path/build.prop  | cut -d "=" -f2)
   if [ $API == 29 ] ; then
     ui_print "- Android 10 detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/libbluetooth.so"
-    pre_hex="C8000034F4031F2AF3031F2AE8030032"
-    post_hex="1F2003D5F4031F2AF3031F2AE8031F2A"
+    if [ "$model" == "SM-G9700" ] || [ "$model" == "SM-G9730" ] || [ "$model" == "SM-G9750" ] || [ "$model" == "SM-N9700" ] || [ "$model" == "SM-N9750" ] ; then
+      pre_hex="88000054691180522925C81A69000037E00300326D020014"
+      post_hex="04000014691180522925C81A1F2003D5E0031F2A6D020014"
+    else
+      pre_hex="C8000034F4031F2AF3031F2AE8030032"
+      post_hex="1F2003D5F4031F2AF3031F2AE8031F2A"
+    fi
   elif [ $API == 28 ] ; then
     ui_print "- Android Pie detected"
     library="libbluetooth.so"
