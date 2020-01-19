@@ -1,24 +1,29 @@
 # BluetoothLibraryPatcher
 # by 3arthur6
 
-check_os_and_set_vars() {
+set_vars() {
+  model=$(grep ro.build.vendor.model= $sys_path/build.prop | cut -d "=" -f2)
+  brand=$(grep ro.build.vendor.brand= $sys_path/build.prop | cut -d "=" -f2)
+
   if [ "$BOOTMODE" == "true" ] ; then
     ui_print "- Magisk Manager installation"
     sys_path="/sbin/.magisk/mirror/system"
   else
     ui_print "- Recovery installation"
-	if [ -d /system/system ] ; then
+    if [ -d /system/system ] ; then
       sys_path="/system/system"
     else
       sys_path="/system"
     fi
   fi
-  model=$(grep ro.build.vendor.model= $sys_path/build.prop  | cut -d "=" -f2)
+  if [ ! "$brand" == "samsung" ] ; then
+    abort "- Only for Samsung devices!"
+  fi
   if [ $API == 29 ] ; then
     ui_print "- Android 10 detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/libbluetooth.so"
-    if [ "$model" == "SM-G9700" ] || [ "$model" == "SM-G9730" ] || [ "$model" == "SM-G9750" ] || [ "$model" == "SM-N9700" ] || [ "$model" == "SM-N9750" ] ; then
+    if [ "$model" == "SM-G9700" ] || [ "$model" == "SM-G9730" ] || [ "$model" == "SM-G9750" ] || [ "$model" == "SM-N9700" ] || [ "$model" == "SM-N9750" ] || [ "$model" == "SM-N9760" ] ; then
       pre_hex="88000054691180522925C81A69000037E00300326D020014"
       post_hex="04000014691180522925C81A1F2003D5E0031F2A6D020014"
     else
@@ -57,7 +62,7 @@ check_os_and_set_vars() {
 check_lib() {
   if [ $API -ge 28 ] && [ ! -f "$sys_path/lib64/$library" ] ; then
     abort "- No $library library found!"
-  elif [ $API -le 27 ] && [ [ ! -f "$sys_path/lib64/hw/$library" ] ||  [ ! -f "$sys_path/lib64/hw/$library" ] ] ; then
+  elif [ $API -le 27 ] && [ [ ! -f "$sys_path/lib64/hw/$library" ] || [ ! -f "$sys_path/lib64/hw/$library" ] ] ; then
     abort "- No $library libraries found!"
   fi
 }
@@ -89,7 +94,7 @@ patch_lib() {
   fi
 }
 
-check_os_and_set_vars
+set_vars
   
 check_lib
   
