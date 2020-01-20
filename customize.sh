@@ -5,21 +5,18 @@ set_vars() {
   if [ "$BOOTMODE" == "true" ] ; then
     ui_print "- Magisk Manager installation"
     sys_path="/sbin/.magisk/mirror/system"
-    if [ $API == 29 ] ; then
-      manufacturer=$(getprop ro.product.system.manufacturer)
-      model=$(getprop ro.product.system.model)
-    else
-      manufacturer=$(getprop ro.product.manufacturer)
-      model=$(getprop ro.product.model)
-    fi
+    manufacturer=$(getprop ro.product.manufacturer)
+    model=$(getprop ro.product.model)
   else
     ui_print "- Recovery installation"
-    if [ -d /system/system ] ; then
+    if [ -d /system_root ] ; then
+      sys_path="/system_root/system"
+    elif [ -d /system/system ] ; then
       sys_path="/system/system"
     else
       sys_path="/system"
     fi
-    if [ $API == 29 ] ; then
+    if grep -q ro.product.system $sys_path/build.prop ; then
       manufacturer=$(grep ro.product.system.manufacturer= $sys_path/build.prop | cut -d "=" -f2)
       model=$(grep ro.product.system.model= $sys_path/build.prop | cut -d "=" -f2)
     else
