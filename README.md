@@ -39,3 +39,7 @@ It supports Android 10 and should also work with Pie and Oreo (8.0/8.1).
 ### v1.5
 
 - Check we try to apply the patch on a Samsung device & add missing chinese Note10+ 5G variant
+
+### v1.6
+
+- Fix brand and model detection for magisk manager and recovery installation
