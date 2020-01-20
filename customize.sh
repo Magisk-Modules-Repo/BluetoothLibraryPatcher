@@ -2,12 +2,16 @@
 # by 3arthur6
 
 set_vars() {
-  model=$(grep ro.build.vendor.model= $sys_path/build.prop | cut -d "=" -f2)
-  brand=$(grep ro.build.vendor.brand= $sys_path/build.prop | cut -d "=" -f2)
-
   if [ "$BOOTMODE" == "true" ] ; then
     ui_print "- Magisk Manager installation"
     sys_path="/sbin/.magisk/mirror/system"
+    if [ $API == 29 ] ; then
+      manufacturer=$(getprop ro.product.system.manufacturer)
+      model=$(getprop ro.product.system.model)
+    else
+      manufacturer=$(getprop ro.product.manufacturer)
+      model=$(getprop ro.product.model)
+    fi
   else
     ui_print "- Recovery installation"
     if [ -d /system/system ] ; then
@@ -15,8 +19,15 @@ set_vars() {
     else
       sys_path="/system"
     fi
+    if [ $API == 29 ] ; then
+      manufacturer=$(grep ro.product.system.manufacturer= $sys_path/build.prop | cut -d "=" -f2)
+      model=$(grep ro.product.system.model= $sys_path/build.prop | cut -d "=" -f2)
+    else
+      manufacturer=$(grep ro.product.manufacturer= $sys_path/build.prop | cut -d "=" -f2)
+      model=$(grep ro.product.model= $sys_path/build.prop | cut -d "=" -f2)
+    fi
   fi
-  if [ ! "$brand" == "samsung" ] ; then
+  if [ ! "$manufacturer" == "samsung" ] ; then
     abort "- Only for Samsung devices!"
   fi
   if [ $API == 29 ] ; then
