@@ -16,13 +16,8 @@ set_vars() {
     else
       sys_path="/system"
     fi
-    if grep -q ro.product.system $sys_path/build.prop ; then
-      manufacturer=$(grep ro.product.system.manufacturer= $sys_path/build.prop | cut -d "=" -f2)
-      model=$(grep ro.product.system.model= $sys_path/build.prop | cut -d "=" -f2)
-    else
-      manufacturer=$(grep ro.product.manufacturer= $sys_path/build.prop | cut -d "=" -f2)
-      model=$(grep ro.product.model= $sys_path/build.prop | cut -d "=" -f2)
-    fi
+    manufacturer=$(grep .manufacturer= $sys_path/build.prop | cut -d "=" -f2)
+    model=$(grep .model= $sys_path/build.prop | cut -d "=" -f2)
   fi
   if [ ! "$manufacturer" == "samsung" ] ; then
     abort "- Only for Samsung devices!"
