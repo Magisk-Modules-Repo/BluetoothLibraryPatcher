@@ -14,6 +14,14 @@ It supports Android 10 and should also work with Pie and Oreo (8.0/8.1).
 
 • @topjohnwu for magisk and magiskboot used here for its easy-to-use hexpatcher
 
+## Source code
+
+[Github](https://github.com/Magisk-Modules-Repo/BluetoothLibraryPatcher)
+
+## Support
+
+[XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735)
+
 ## Changelog
 
 ### v1.0
