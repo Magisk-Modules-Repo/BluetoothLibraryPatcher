@@ -29,8 +29,12 @@ set_vars() {
     ui_print "- $model on Android Pie detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/$library"
-    pre_hex="88000034E803003248070035"
-    post_hex="1F2003D5E8031F2A48070035"
+    if echo $model | grep -Eq SM-[GN]97[0356]0 ; then
+      pre_hex="7F1D0071E91700F9E83C0054"
+      post_hex="E0031F2AE91700F9E8010014"
+    else
+      pre_hex="88000034E803003248070035"
+      post_hex="1F2003D5E8031F2A48070035"
   elif [ $API == 27 ] ; then
     ui_print "- $model on Android Oreo 8.1 detected"
     library="bluetooth.default.so"
