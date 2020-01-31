@@ -35,6 +35,7 @@ set_vars() {
     else
       pre_hex="88000034E803003248070035"
       post_hex="1F2003D5E8031F2A48070035"
+    fi
   elif [ $API == 27 ] ; then
     ui_print "- $model on Android Oreo 8.1 detected"
     library="bluetooth.default.so"
