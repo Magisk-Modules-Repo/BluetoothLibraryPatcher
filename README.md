@@ -10,7 +10,7 @@ It is reported to work on exynos S10e, S10, S10+, N9, N10+, us snapdragon S10+, 
 
 It supports Android 10 and should also work with Pie and Oreo (8.0/8.1).
 
-If it fails on your device post your /system/lib64/libbluetooth and /system/build.prop files on XDA thread and I will be able to add support for it.
+If it fails on your device, please post your /system/lib64/libbluetooth.so and /system/build.prop files on XDA thread and I will be able to add support for it.
 
 ## Credits
 
