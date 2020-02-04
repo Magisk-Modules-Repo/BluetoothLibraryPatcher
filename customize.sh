@@ -59,14 +59,6 @@ set_vars() {
   fi
 }
 
-check_lib() {
-  if [ $API -ge 28 ] && [ ! -f "$sys_path/lib64/$library" ] ; then
-    abort "- No $library library found!"
-  elif [ $API -le 27 ] && [ [ ! -f "$sys_path/lib64/hw/$library" ] || [ ! -f "$sys_path/lib/hw/$library" ] ] ; then
-    abort "- No $library libraries found!"
-  fi
-}
-
 extract() {
   if [ $API -ge 28 ] ; then
     mkdir -p $MODPATH/system/lib64
@@ -95,9 +87,7 @@ patch_lib() {
 }
 
 set_vars
-  
-check_lib
-  
+
 extract
-  
+
 patch_lib
