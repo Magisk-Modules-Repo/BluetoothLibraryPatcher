@@ -6,9 +6,11 @@ This module attends to avoid losing bluetooth pairings after reboot or airplane 
 
 It patches on the fly the bluetooth library.
 
-It is reported to work on exynos S10e, S10, S10+, N9, N10+, us snapdragon S10+, chinese snapdragon N10+ and S10+ on Android 10 / One UI 2. Also works with N9 on Pie. So it is expected to work with other devices and older OS.
+It is reported to work on exynos S10e, S10, S10+, N9, N10+, us snapdragon S10+, chinese snapdragon N10+ and S10+ on Android 10 / One UI 2. Also works with exynos N9 and chinese/global snapdragon N10 on Pie. So it is expected to work with other devices and older OS.
 
 It supports Android 10 and should also work with Pie and Oreo (8.0/8.1).
+
+If it fails on your device post your /system/lib64/libbluetooth and /system/build.prop files on XDA thread and I will be able to add support for it.
 
 ## Credits
 
@@ -51,3 +53,8 @@ It supports Android 10 and should also work with Pie and Oreo (8.0/8.1).
 ### v1.6
 
 - Fix brand and model detection for magisk manager and recovery installation
+
+### v1.7
+
+- Add support for chinese/global snapdragon on Pie
+- Add support for chinese/global S/N9 snapdragon on Q & simplify the hexpatch
