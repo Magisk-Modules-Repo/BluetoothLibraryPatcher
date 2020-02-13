@@ -2,7 +2,7 @@
 # by 3arthur6
 
 set_vars() {
-  model=`grep -o androidboot.em.model=......... /proc/cmdline | tr -d ' ' | cut -d "=" -f2`
+  model=`grep -o androidboot.em.model=......... /proc/cmdline | tr -d ' ' | cut -d '=' -f2`
 
   if [ -z $model ] ; then
     abort "- Only for Samsung devices!"
@@ -29,7 +29,7 @@ set_vars() {
     ui_print "- $model on Android Pie detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/$library"
-    if echo $model | grep -Eq 'SM-G97[035]0|SM-N97[056]0' ; then
+    if echo $model | grep -Eq 'SM-G97[035]0|SM-N97[056]0|SM-A805[F0]' ; then
       pre_hex="7F1D0071E91700F9E83C0054"
       post_hex="E0031F2AE91700F9E8010014"
     elif echo $model | grep -Eq 'SM-A600([FGNPTU]|FN|GN|T1)' ; then
