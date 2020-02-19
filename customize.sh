@@ -18,7 +18,7 @@ set_vars() {
     ui_print "- $model on Android 10 detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/$library"
-    if echo $model | grep -Eq 'SM-G9[67][035]0|SM-N9[67][056]0' ; then
+    if echo $model | grep -Eq 'SM-G9[67][035][08]|SM-N9[67][056][08]' ; then
       pre_hex="88000054691180522925C81A69000037E0030032"
       post_hex="04000014691180522925C81A69000037E0031F2A"
     else
