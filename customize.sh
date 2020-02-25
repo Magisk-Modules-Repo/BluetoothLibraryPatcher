@@ -2,7 +2,7 @@
 # by 3arthur6
 
 set_vars() {
-  model=`grep -o androidboot.em.model=......... /proc/cmdline | tr -d ' ' | cut -d '=' -f2`
+  model=`grep -o androidboot.em.model=.* /proc/cmdline | cut -d ' ' -f1 | cut -d '=' -f2`
 
   if [ -z $model ] ; then
     abort "- Only for Samsung devices!"
