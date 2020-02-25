@@ -3,6 +3,7 @@
 
 set_vars() {
   model=`grep -o androidboot.em.model=.* /proc/cmdline | cut -d ' ' -f1 | cut -d '=' -f2`
+  qcom=`grep -oqw androidboot.hardware=qcom /proc/cmdline && echo 'true' || echo 'false'`
 
   if [ -z $model ] ; then
     abort "- Only for Samsung devices!"
@@ -18,7 +19,7 @@ set_vars() {
     ui_print "- $model on Android 10 detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/$library"
-    if echo $model | grep -Eq 'SM-G9[67][035][08]|SM-N9[67][056][08]' ; then
+    if $qcom ; then
       pre_hex="88000054691180522925C81A69000037E0030032"
       post_hex="04000014691180522925C81A69000037E0031F2A"
     else
@@ -29,7 +30,7 @@ set_vars() {
     ui_print "- $model on Android Pie detected"
     library="libbluetooth.so"
     path="$MODPATH/system/lib64/$library"
-    if echo $model | grep -Eq 'SM-G97[035]0|SM-N97[056]0|SM-A805[F0]' ; then
+    if $qcom ; then
       pre_hex="7F1D0071E91700F9E83C0054"
       post_hex="E0031F2AE91700F9E8010014"
     elif echo $model | grep -Eq 'SM-A600([FGNPTU]|FN|GN|T1)' ; then
