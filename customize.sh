@@ -87,6 +87,7 @@ is_lib_patched() {
 patch_lib() {
   ui_print "- Patching it"
   if ! echo `hex_patch $mod_path $pre_hex $post_hex` | grep -Fq "[$pre_hex]->[$post_hex]" ; then
+    rm -rf $MODPATH
     if is_lib_patched ; then
       abort "- Aborting! Library already patched!"
     else
