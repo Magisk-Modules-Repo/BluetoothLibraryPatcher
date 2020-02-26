@@ -65,7 +65,9 @@ set_vars() {
 }
 
 extract() {
-  if [ $API -ge 28 ] ; then
+  if [ ! -f $sys_path ] ; then
+    abort "- Aborting! Library not found!"
+  elif [ $API -ge 28 ] ; then
     mkdir -p $MODPATH/system/lib64
     ui_print "- Copying library from system to module"
     cp -af $sys_path $mod_path
