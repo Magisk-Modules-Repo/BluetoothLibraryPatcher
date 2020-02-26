@@ -49,20 +49,14 @@ set_vars() {
     ui_print "- $model on Android Oreo 8.1 detected"
     library="bluetooth.default.so"
     path="$MODPATH/system/lib64/hw/$library"
-    path2="$MODPATH/system/lib/hw/$library"
     pre_hex="88000034E803003228050035"
-    pre_hex2="0978019009B1012032E07748"
     post_hex="1F2003D5E8031F2A28050035"
-    post_hex2="0978019000BF002032E07748"
   elif [ $API == 26 ] ; then
     ui_print "- $model on Android Oreo 8.0 detected"
     library="bluetooth.default.so"
     path="$MODPATH/system/lib64/hw/$library"
-    path2="$MODPATH/system/lib/hw/$library"
     pre_hex="88000034E803003228050035"
-    pre_hex2="0190087808B1012031E07548"
     post_hex="1F2003D5E8031F2A28050035"
-    post_hex2="0190087800BF002031E07548"
   else
     abort "- Only for Android 10, Pie or Oreo!"
   fi
@@ -74,10 +68,9 @@ extract() {
     ui_print "- Copying library from system to module"
     cp -af $sys_path/lib64/$library $path
   else
-    mkdir -p $MODPATH/system/lib64/hw $MODPATH/system/lib/hw
-    ui_print "- Copying libraries from system to module"
+    mkdir -p $MODPATH/system/lib64/hw
+    ui_print "- Copying library from system to module"
     cp -af $sys_path/lib64/hw/$library $path
-    cp -af $sys_path/lib/hw/$library $path2
   fi
 }
 
@@ -88,9 +81,6 @@ hex_patch() {
 patch_lib() {
   ui_print "- Patching it"
   if ! echo $(hex_patch $path $pre_hex $post_hex) | grep -Fq "[$pre_hex]->[$post_hex]" ; then
-    abort "- Library not supported!"
-  fi
-  if [ $API -le 27 ] && ! echo $(hex_patch $path2 $pre_hex2 $post_hex2) | grep -Fq "[$pre_hex2]->[$post_hex2]" ; then
     abort "- Library not supported!"
   fi
 }
