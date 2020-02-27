@@ -83,7 +83,7 @@ hex_patch() {
 }
 
 is_lib_patched() {
-  /data/adb/magisk/busybox xxd -c `wc -c < $sys_path` -p $sys_path | grep -iq $post_hex
+  /data/adb/magisk/busybox xxd -p $sys_path | tr -d '\n' | grep -iq $post_hex
 }
 
 patch_lib() {
