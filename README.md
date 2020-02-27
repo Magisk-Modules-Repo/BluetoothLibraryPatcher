@@ -4,13 +4,9 @@
 
 This module attends to avoid losing bluetooth pairings after reboot or airplane mode switch on rooted samsung devices.
 
-It patches on the fly the bluetooth library.
+It patches on the fly the bluetooth library and should support most of samsung devices on android Oreo, Pie and 10.
 
-It is reported to work on exynos S10e, S10, S10+, N9, N10+, us snapdragon S10+, chinese snapdragon N10+ and S10+ on Android 10 / One UI 2. Also works with exynos N9 and chinese/global snapdragon N10 on Pie. So it is expected to work with other devices and older OS.
-
-It supports Android 10 and should also work with Pie and Oreo (8.0/8.1).
-
-If it fails on your device, please post your /system/lib64/libbluetooth.so and /system/build.prop files on XDA thread and I will be able to add support for it.
+If it fails on your device, please post your /system/lib64/libbluetooth.so and /system/build.prop files on XDA thread.
 
 ## Credits
 
@@ -58,3 +54,9 @@ If it fails on your device, please post your /system/lib64/libbluetooth.so and /
 
 - Add support for chinese/global snapdragon on Pie
 - Add support for chinese/global S/N9 snapdragon on Q & simplify the hexpatch
+
+### v1.8
+
+- Add support for A6, A10, A80, some S10e and N10 variants
+- Apply the only known qcom fix to all of them
+- Add some checks to avoid false negatives
