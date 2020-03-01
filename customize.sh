@@ -80,10 +80,10 @@ extract() {
 patch_lib() {
   ui_print "- Applying patch"
   if /data/adb/magisk/magiskboot hexpatch $mod_path $pre_hex $post_hex ; then
-    ui_print "- Patched!"
+    ui_print "- Successfully patched!"
   else
     if /data/adb/magisk/magiskboot hexpatch $mod_path $post_hex 0 ; then
-      ui_print "- Aborting! Library already patched!"
+      ui_print "- Aborting! Library already (system-ly) patched!"
     else
       ui_print "- Aborting! Library not supported!"
       ui_print "- Ask for support at XDA forum"
