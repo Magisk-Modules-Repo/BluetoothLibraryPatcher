@@ -6,7 +6,8 @@ set_vars() {
   qcom=`grep -oqw androidboot.hardware=qcom /proc/cmdline && echo 'true' || echo 'false'`
 
   if [ -z $model ] ; then
-    abort "- Only for Samsung devices!"
+    ui_print "- Only for Samsung devices!"
+    abort
   fi
   if $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
@@ -60,13 +61,15 @@ set_vars() {
     pre_hex="88000034E803003228050035"
     post_hex="1F2003D5E8031F2A28050035"
   else
-    abort "- Only for Android 10, Pie or Oreo!"
+    ui_print "- Only for Android 10, Pie or Oreo!"
+    abort
   fi
 }
 
 extract() {
   if [ ! -f $sys_path ] ; then
-    abort "- Aborting! Library not found!"
+    ui_print "- Aborting! Library not found!"
+    abort
   else
     ui_print "- Copying library from system to module"
     mkdir -p `echo $mod_path | xargs dirname`
@@ -83,15 +86,18 @@ is_lib_patched() {
 }
 
 patch_lib() {
-  ui_print "- Patching it"
-  if ! echo `hex_patch $mod_path $pre_hex $post_hex` | grep -Fq "[$pre_hex]->[$post_hex]" ; then
+  ui_print "- Applying patch"
+  if echo `hex_patch $mod_path $pre_hex $post_hex` | grep -Fq "[$pre_hex]->[$post_hex]" ; then
+    ui_print "- Patched!"
+  else
     rm -rf $MODPATH
     if is_lib_patched ; then
-      abort "- Aborting! Library already patched!"
+      ui_print "- Aborting! Library already patched!"
     else
       ui_print "- Aborting! Library not supported!"
-      abort "- Ask for support at XDA forum"
+      ui_print "- Ask for support at XDA forum"
     fi
+    abort
   fi
 }
 
