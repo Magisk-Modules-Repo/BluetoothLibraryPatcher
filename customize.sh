@@ -77,26 +77,18 @@ extract() {
   fi
 }
 
-hex_patch() {
-  /data/adb/magisk/magiskboot hexpatch $1 $2 $3 2>&1
-}
-
-is_lib_patched() {
-  /data/adb/magisk/busybox xxd -p $sys_path | tr -d '\n' | grep -iq $post_hex
-}
-
 patch_lib() {
   ui_print "- Applying patch"
-  if echo `hex_patch $mod_path $pre_hex $post_hex` | grep -Fq "[$pre_hex]->[$post_hex]" ; then
+  if /data/adb/magisk/magiskboot hexpatch $mod_path $pre_hex $post_hex ; then
     ui_print "- Patched!"
   else
-    rm -rf $MODPATH
-    if is_lib_patched ; then
+    if /data/adb/magisk/magiskboot hexpatch $mod_path $post_hex 0 ; then
       ui_print "- Aborting! Library already patched!"
     else
       ui_print "- Aborting! Library not supported!"
       ui_print "- Ask for support at XDA forum"
     fi
+    rm -rf $MODPATH
     abort
   fi
 }
