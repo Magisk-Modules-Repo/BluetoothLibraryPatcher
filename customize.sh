@@ -54,12 +54,22 @@ set_vars() {
     sys_path="$sys/lib64/hw/bluetooth.default.so"
     pre_hex="88000034E803003228050035"
     post_hex="1F2003D5E8031F2A28050035"
+    if [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
+      mod_path=`echo $mod_path | tr -d '64'`
+      sys_path=`echo $sys_path | tr -d '64'`
+      pre_hex="09B1012032E0"
+      post_hex="00BF002032E0"
   elif [ $API == 26 ] ; then
     ui_print "- $model on Android Oreo 8.0 detected"
     mod_path="$MODPATH/system/lib64/hw/bluetooth.default.so"
     sys_path="$sys/lib64/hw/bluetooth.default.so"
     pre_hex="88000034E803003228050035"
     post_hex="1F2003D5E8031F2A28050035"
+    if [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
+      mod_path=`echo $mod_path | tr -d '64'`
+      sys_path=`echo $sys_path | tr -d '64'`
+      pre_hex="08B1012031E0"
+      post_hex="00BF002031E0"
   else
     ui_print "- Only for Android 10, Pie or Oreo!"
     abort
