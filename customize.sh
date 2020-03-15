@@ -23,6 +23,11 @@ set_vars() {
     if $qcom ; then
       pre_hex="88000054691180522925C81A69000037E0030032"
       post_hex="04000014691180522925C81A69000037E0031F2A"
+    elif echo $model | grep -Eq 'SM-A600([FGNPTU]|FN|GN|T1)' ; then
+      mod_path=`echo $mod_path | tr -d '64'`
+      sys_path=`echo $sys_path | tr -d '64'`
+      pre_hex="29B100250120"
+      post_hex="00BF00250020"
     else
       pre_hex="C8000034F4031F2AF3031F2AE8030032"
       post_hex="1F2003D5F4031F2AF3031F2AE8031F2A"
