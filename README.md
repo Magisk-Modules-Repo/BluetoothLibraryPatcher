@@ -6,7 +6,7 @@ This module attends to avoid losing bluetooth pairings after reboot or airplane 
 
 It patches on the fly the bluetooth library and should support most of samsung devices on android Oreo, Pie and 10.
 
-If it fails on your device, please post your /system/lib64/libbluetooth.so and /system/build.prop files on XDA thread.
+In case installation fails, please upload the BluetoothLibPatcherPatcher-files.tar created in your internal storage to the XDA thread.
 
 ## Credits
 
@@ -60,3 +60,8 @@ If it fails on your device, please post your /system/lib64/libbluetooth.so and /
 - Add support for A6, A10, A80, some S10e and N10 variants
 - Apply the only known qcom fix to all of them
 - Add some checks to avoid false negatives
+
+### v1.9
+
+- Support more arm devices
+- Auto create tar with needed files in internal storage to fix unsupported devices
