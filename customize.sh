@@ -23,7 +23,7 @@ set_vars() {
     if $qcom ; then
       pre_hex="88000054691180522925C81A69000037E0030032"
       post_hex="04000014691180522925C81A69000037E0031F2A"
-    elif echo $model | grep -Eq 'SM-A600([FGNPTU]|FN|GN|T1)' ; then
+    elif [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       pre_hex="29B100250120"
@@ -39,16 +39,16 @@ set_vars() {
     if $qcom ; then
       pre_hex="7F1D0071E91700F9E83C0054"
       post_hex="E0031F2AE91700F9E8010014"
-    elif echo $model | grep -Eq 'SM-A600([FGNPTU]|FN|GN|T1)' ; then
+    elif [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
-      pre_hex="19B101200028"
-      post_hex="00BF00200028"
-    elif echo $model | grep -Eq 'SM-A105([FGMN]|FN)' ; then
-      mod_path=`echo $mod_path | tr -d '64'`
-      sys_path=`echo $sys_path | tr -d '64'`
-      pre_hex="18B101200028"
-      post_hex="00BF00200028"
+      if echo $model | grep -Eq 'SM-A105([FGMN]|FN)' ; then
+        pre_hex="18B101200028"
+        post_hex="00BF00200028"
+      else
+        pre_hex="19B101200028"
+        post_hex="00BF00200028"
+      fi
     else
       pre_hex="88000034E803003248070035"
       post_hex="1F2003D5E8031F2A48070035"
