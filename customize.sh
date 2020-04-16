@@ -57,25 +57,27 @@ set_vars() {
     ui_print "- $model on Android Oreo 8.1 detected"
     mod_path="$MODPATH/system/lib64/hw/bluetooth.default.so"
     sys_path="$sys/lib64/hw/bluetooth.default.so"
-    pre_hex="88000034E803003228050035"
-    post_hex="1F2003D5E8031F2A28050035"
     if [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       pre_hex="09B1012032E0"
       post_hex="00BF002032E0"
+    else
+      pre_hex="88000034E803003228050035"
+      post_hex="1F2003D5E8031F2A28050035"
     fi
   elif [ $API == 26 ] ; then
     ui_print "- $model on Android Oreo 8.0 detected"
     mod_path="$MODPATH/system/lib64/hw/bluetooth.default.so"
     sys_path="$sys/lib64/hw/bluetooth.default.so"
-    pre_hex="88000034E803003228050035"
-    post_hex="1F2003D5E8031F2A28050035"
     if [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       pre_hex="08B1012031E0"
       post_hex="00BF002031E0"
+    else
+      pre_hex="88000034E803003228050035"
+      post_hex="1F2003D5E8031F2A28050035"
     fi
   else
     ui_print "- Only for Android 10, Pie or Oreo!"
@@ -107,7 +109,7 @@ patch_lib() {
       cd $TMPDIR
       tar -cf /storage/emulated/0/BluetoothLibPatcher-files.tar *
       ui_print " "
-      ui_print "- To get support upload the BluetoothLibPatcher-files.tar"
+      ui_print "- To get support upload BluetoothLibPatcher-files.tar"
       ui_print "  created in your internal storage to the XDA thread."
     fi
     rm -rf $MODPATH
