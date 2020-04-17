@@ -23,7 +23,7 @@ set_vars() {
     if $qcom ; then
       pre_hex="88000054691180522925C81A69000037E0030032"
       post_hex="04000014691180522925C81A69000037E0031F2A"
-    elif [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
+    elif ! $IS64BIT ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       pre_hex="29B100250120"
@@ -39,7 +39,7 @@ set_vars() {
     if $qcom ; then
       pre_hex="7F1D0071E91700F9E83C0054"
       post_hex="E0031F2AE91700F9E8010014"
-    elif [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
+    elif ! $IS64BIT ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       if echo $model | grep -Eq 'SM-A105([FGMN]|FN)' ; then
@@ -57,7 +57,7 @@ set_vars() {
     ui_print "- $model on Android Oreo 8.1 detected"
     mod_path="$MODPATH/system/lib64/hw/bluetooth.default.so"
     sys_path="$sys/lib64/hw/bluetooth.default.so"
-    if [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
+    if ! $IS64BIT ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       pre_hex="09B1012032E0"
@@ -70,7 +70,7 @@ set_vars() {
     ui_print "- $model on Android Oreo 8.0 detected"
     mod_path="$MODPATH/system/lib64/hw/bluetooth.default.so"
     sys_path="$sys/lib64/hw/bluetooth.default.so"
-    if [ ! -f $sys_path ] && [ -f `echo $sys_path | tr -d '64'` ] ; then
+    if ! $IS64BIT ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       pre_hex="08B1012031E0"
