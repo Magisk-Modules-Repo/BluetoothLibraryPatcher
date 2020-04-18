@@ -107,7 +107,7 @@ patch_lib() {
       ui_print "- Aborting! Library not supported!"
       cp -f $sys_path $sys/build.prop $TMPDIR
       cd $TMPDIR
-      tar -cf /storage/emulated/0/BluetoothLibPatcher-files.tar *
+      tar -cf /sdcard/BluetoothLibPatcher-files.tar *
       ui_print " "
       ui_print "- To get support upload BluetoothLibPatcher-files.tar"
       ui_print "  created in your internal storage to the XDA thread."
