@@ -16,6 +16,7 @@ set_vars() {
     ui_print "- Recovery installation"
     sys=`find $ANDROID_ROOT -mindepth 1 -maxdepth 2 -path "*system/build.prop" | xargs dirname`
   fi
+  ui_print "- Searching for the hex sequence"
   if [ $API == 29 ] ; then
     ui_print "- $model on Android 10 detected"
     mod_path="$MODPATH/system/lib64/libbluetooth.so"
@@ -29,7 +30,10 @@ set_vars() {
       pre_hex="29B100250120"
       post_hex="00BF00250020"
     else
-      pre_hex="C8000034F4031F2AF3031F2AE8030032"
+      pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ........F4031F2AF3031F2AE8030032 | tr '[:lower:]' '[:upper:]'`
+      if $pre_hex ; then
+        pre_hex="not_found"
+      fi
       post_hex="1F2003D5F4031F2AF3031F2AE8031F2A"
     fi
   elif [ $API == 28 ] ; then
@@ -42,13 +46,11 @@ set_vars() {
     elif ! $IS64BIT ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
-      if echo $model | grep -Eq 'SM-A105([FGMN]|FN)' ; then
-        pre_hex="18B101200028"
-        post_hex="00BF00200028"
-      else
-        pre_hex="19B101200028"
-        post_hex="00BF00200028"
+      pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ..B101200028 | tr '[:lower:]' '[:upper:]'`
+      if $pre_hex ; then
+        pre_hex="not_found"
       fi
+      post_hex="00BF00200028"
     else
       pre_hex="88000034E803003248070035"
       post_hex="1F2003D5E8031F2A48070035"
