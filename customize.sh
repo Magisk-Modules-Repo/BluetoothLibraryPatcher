@@ -31,7 +31,7 @@ set_vars() {
       post_hex="00BF00250020"
     else
       pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ........F4031F2AF3031F2AE8030032 | tr '[:lower:]' '[:upper:]'`
-      if $pre_hex ; then
+      if [ -z $pre_hex ] ; then
         pre_hex="not_found"
       fi
       post_hex="1F2003D5F4031F2AF3031F2AE8031F2A"
@@ -47,7 +47,7 @@ set_vars() {
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ..B101200028 | tr '[:lower:]' '[:upper:]'`
-      if $pre_hex ; then
+      if [ -z $pre_hex ] ; then
         pre_hex="not_found"
       fi
       post_hex="00BF00200028"
@@ -100,10 +100,10 @@ extract() {
 
 patch_lib() {
   ui_print "- Applying patch"
-  if /data/adb/magisk/magiskboot hexpatch $mod_path $pre_hex $post_hex ; then
+  if /data/adb/magisk/magiskboot hexpatch $mod_path $pre_hex $post_hex 2>/dev/null ; then
     ui_print "- Successfully patched!"
   else
-    if /data/adb/magisk/magiskboot hexpatch $mod_path $post_hex 0 ; then
+    if /data/adb/magisk/magiskboot hexpatch $mod_path $post_hex 0 2>/dev/null ; then
       ui_print "- Aborting! Library already (system-ly) patched!"
     else
       ui_print "- Aborting! Library not supported!"
