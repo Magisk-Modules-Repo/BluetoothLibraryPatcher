@@ -21,14 +21,17 @@ set_vars() {
     ui_print "- $model on Android 10 detected"
     mod_path="$MODPATH/system/lib64/libbluetooth.so"
     sys_path="$sys/lib64/libbluetooth.so"
-    if $qcom ; then
-      pre_hex="88000054691180522925C81A69000037E0030032"
-      post_hex="04000014691180522925C81A69000037E0031F2A"
-    elif ! $IS64BIT ; then
+    if ! $IS64BIT ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
-      pre_hex="29B100250120"
+      pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ..B100250120 | tr '[:lower:]' '[:upper:]'`
+      if [ -z $pre_hex ] ; then
+        pre_hex="not_found"
+      fi
       post_hex="00BF00250020"
+    elif $qcom ; then
+      pre_hex="88000054691180522925C81A69000037E0030032"
+      post_hex="04000014691180522925C81A69000037E0031F2A"
     else
       pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ........F4031F2AF3031F2AE8030032 | tr '[:lower:]' '[:upper:]'`
       if [ -z $pre_hex ] ; then
@@ -40,10 +43,7 @@ set_vars() {
     ui_print "- $model on Android Pie detected"
     mod_path="$MODPATH/system/lib64/libbluetooth.so"
     sys_path="$sys/lib64/libbluetooth.so"
-    if $qcom ; then
-      pre_hex="7F1D0071E91700F9E83C0054"
-      post_hex="E0031F2AE91700F9E8010014"
-    elif ! $IS64BIT ; then
+    if ! $IS64BIT ; then
       mod_path=`echo $mod_path | tr -d '64'`
       sys_path=`echo $sys_path | tr -d '64'`
       pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ..B101200028 | tr '[:lower:]' '[:upper:]'`
@@ -51,6 +51,9 @@ set_vars() {
         pre_hex="not_found"
       fi
       post_hex="00BF00200028"
+    elif $qcom ; then
+      pre_hex="7F1D0071E91700F9E83C0054"
+      post_hex="E0031F2AE91700F9E8010014"
     else
       pre_hex="88000034E803003248070035"
       post_hex="1F2003D5E8031F2A48070035"
