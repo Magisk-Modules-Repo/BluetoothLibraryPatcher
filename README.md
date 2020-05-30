@@ -8,6 +8,9 @@ It patches on the fly the bluetooth library and should support most of samsung d
 
 In case installation fails, please upload the BluetoothLibPatcherPatcher-files.tar created in your internal storage to the XDA thread.
 
+
+To fix Galaxy Wearable pairing issue, go to [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735) twrp flashable zip. The modifcations aren't applicable through Magisk.
+
 ## Credits
 
 • @topjohnwu for magisk and magiskboot used here for its easy-to-use hexpatcher
