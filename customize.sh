@@ -3,7 +3,7 @@
 
 set_vars() {
   model=`grep -o androidboot.em.model=.* /proc/cmdline | cut -d ' ' -f1 | cut -d '=' -f2`
-  qcom=`grep -oqw androidboot.hardware=qcom /proc/cmdline && echo 'true' || echo 'false'`
+  qcom=`grep -qw androidboot.hardware=qcom /proc/cmdline && echo 'true' || echo 'false'`
 
   if [ -z $model ] ; then
     ui_print "- Only for Samsung devices!"
@@ -29,7 +29,7 @@ set_vars() {
         pre_hex="not_found"
       fi
       post_hex="00BF00250020"
-    elif $qcom ; then
+    elif $qcom && xxd -p $sys_path | tr -d '\n' | grep -iq 88000054691180522925C81A69000037E0030032 ; then
       pre_hex="88000054691180522925C81A69000037E0030032"
       post_hex="04000014691180522925C81A69000037E0031F2A"
     else
@@ -51,7 +51,7 @@ set_vars() {
         pre_hex="not_found"
       fi
       post_hex="00BF00200028"
-    elif $qcom ; then
+    elif $qcom && xxd -p $sys_path | tr -d '\n' | grep -iq 7F1D0071E91700F9E83C0054 ; then
       pre_hex="7F1D0071E91700F9E83C0054"
       post_hex="E0031F2AE91700F9E8010014"
     else
