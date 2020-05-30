@@ -88,6 +88,7 @@ set_vars() {
     ui_print "- Only for Android 10, Pie or Oreo!"
     abort
   fi
+  echo -e "model=$model\nBOOTMODE=$BOOTMODE\nsys=$sys\nAPI=$API\nIS64BIT=$IS64BIT\nqcom=$qcom\nmod_path=$mod_path\nsys_path=$sys_path\npre_hex=$pre_hex\npost_hex=$post_hex" > $TMPDIR/vars.txt
 }
 
 extract() {
