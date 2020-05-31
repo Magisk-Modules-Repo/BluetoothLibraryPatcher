@@ -111,7 +111,7 @@ patch_lib() {
       ui_print "- Aborting! Library already (system-ly) patched!"
     else
       ui_print "- Aborting! Library not supported!"
-      cp -f $sys_path $sys/build.prop $TMPDIR
+      cp -f $sys_path $sys/build.prop /data/misc/bluedroiddump/subBuffer.log $TMPDIR
       cd $TMPDIR
       tar -cf /sdcard/BluetoothLibPatcher-files.tar *
       ui_print " "
