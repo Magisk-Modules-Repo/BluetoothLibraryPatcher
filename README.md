@@ -6,6 +6,8 @@ This module attends to avoid losing bluetooth pairings after reboot or airplane 
 
 It patches on the fly the bluetooth library and should support most of samsung devices on android Oreo, Pie and 10.
 
+This patch is NOT applicable with an aosp rom, only samsung stock/based.
+
 In case installation fails, please upload the BluetoothLibPatcherPatcher-files.tar created in your internal storage to the XDA thread.
 
 
@@ -68,3 +70,8 @@ To fix Galaxy Wearable pairing issue, go to [XDA](https://forum.xda-developers.c
 
 - Support more arm devices
 - Auto create tar with needed files in internal storage to fix unsupported devices
+
+### v2.0
+
+- Support more devices
+- Misc optimizations
