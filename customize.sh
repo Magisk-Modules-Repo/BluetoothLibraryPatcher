@@ -2,19 +2,32 @@
 # by 3arthur6
 
 set_vars() {
-  model=`grep -o androidboot.em.model=.* /proc/cmdline | cut -d ' ' -f1 | cut -d '=' -f2`
+  samsung=`grep -qw androidboot.odin_download /proc/cmdline && echo 'true' || echo 'false'`
+  bootloader=`grep -o androidboot.bootloader=.* /proc/cmdline | cut -d ' ' -f1 | cut -d '=' -f2`
   qcom=`grep -qw androidboot.hardware=qcom /proc/cmdline && echo 'true' || echo 'false'`
 
-  if [ -z $model ] ; then
-    ui_print "- Only for Samsung devices!"
-    abort
-  fi
   if $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
     sys="/sbin/.magisk/mirror/system"
   else
     ui_print "- Recovery installation"
     sys=`find $ANDROID_ROOT -mindepth 1 -maxdepth 2 -path "*system/build.prop" | xargs dirname`
+  fi
+  if ! $samsung ; then
+    ui_print "- Only for Samsung devices!"
+    abort
+  fi
+  if ! grep -qw ro.build.type=user $sys/build.prop ; then
+    ui_print "- Only for Samsung stock based roms!"
+    ui_print "- Not relevant for aosp roms!"
+    abort
+  fi
+  if [ ${#bootloader} == 13 ] ; then
+    model=${bootloader:0:5}
+  elif [ ${#bootloader} == 14 ] ; then
+    model=${bootloader:0:6}
+  else
+    model="Model not found"
   fi
   ui_print "- Searching for the hex sequence"
   if [ $API == 29 ] ; then
