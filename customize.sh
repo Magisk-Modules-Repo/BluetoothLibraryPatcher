@@ -23,9 +23,9 @@ set_vars() {
     abort
   fi
   if [ ${#bootloader} == 13 ] ; then
-    model=${bootloader:0:5}
+    model=SM-${bootloader:0:5}
   elif [ ${#bootloader} == 14 ] ; then
-    model=${bootloader:0:6}
+    model=SM-${bootloader:0:6}
   else
     model="Model not found"
   fi
