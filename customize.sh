@@ -2,7 +2,7 @@
 # by 3arthur6
 
 set_vars() {
-  samsung=`grep -qw androidboot.odin_download /proc/cmdline && echo 'true' || echo 'false'`
+  samsung=`grep -Eqw "androidboot.odin_download|androidboot.warranty_bit" /proc/cmdline && echo 'true' || echo 'false'`
   bootloader=`grep -o androidboot.bootloader=.* /proc/cmdline | cut -d ' ' -f1 | cut -d '=' -f2`
   qcom=`grep -qw androidboot.hardware=qcom /proc/cmdline && echo 'true' || echo 'false'`
 
