@@ -10,8 +10,19 @@ This patch is NOT applicable with an aosp rom, only samsung stock/based.
 
 In case installation fails, please upload the BluetoothLibPatcher-files.tar created in your internal storage to the XDA thread.
 
+To fix Galaxy Wearable pairing issue, as the modifcations aren't applicable through Magisk :
 
-To fix Galaxy Wearable pairing issue, go to [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735) twrp flashable zip. The modifcations aren't applicable through Magisk.
+Either go to [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735) twrp flashable zip.
+
+Or you can directly execute these commands from a terminal app :
+```bash
+su
+mount -w -o remount /vendor
+cp --preserve=all /vendor/etc/vintf/manifest.xml /vendor/etc/vintf/manifest.xml.bak
+sed -i /`grep wsm /vendor/etc/vintf/manifest.xml|sed 's@/@\\\/@'|sed 's@>@\\>@g'|sed 's@<@\\<@g'|tr -d ' '`/,/'<hal format="hidl">'/d /vendor/etc/vintf/manifest.xml
+mount -r -o remount /vendor
+```
+
 
 ## Credits
 
