@@ -22,7 +22,9 @@ set_vars() {
     ui_print "- Not relevant for aosp roms!"
     abort
   fi
-  if [ ${#bootloader} == 13 ] ; then
+  if [ ${#bootloader} == 12 ] ; then
+    model=SM-${bootloader:0:4}
+  elif [ ${#bootloader} == 13 ] ; then
     model=SM-${bootloader:0:5}
   elif [ ${#bootloader} == 14 ] ; then
     model=SM-${bootloader:0:6}
