@@ -99,8 +99,15 @@ set_vars() {
       pre_hex="88000034E803003228050035"
       post_hex="1F2003D5E8031F2A28050035"
     fi
+  elif [ $API == 24 ] ; then
+    ui_print "- $model on Android Nougat 7.0 detected"
+    mod_path="$MODPATH/system/lib/hw/bluetooth.default.so"
+    sys_path="$sys/lib/hw/bluetooth.default.so"
+    pre_hex="007840BB6A48"
+    post_hex="002028E06A48"
+    fi
   else
-    ui_print "- Only for Android 10, Pie or Oreo!"
+    ui_print "- Only for Android 10, Pie, Oreo and Nougat!"
     abort
   fi
   echo -e "model=$model\nBOOTMODE=$BOOTMODE\nsys=$sys\nAPI=$API\nIS64BIT=$IS64BIT\nqcom=$qcom\nmod_path=$mod_path\nsys_path=$sys_path\npre_hex=$pre_hex\npost_hex=$post_hex" > $TMPDIR/vars.txt
