@@ -105,7 +105,6 @@ set_vars() {
     sys_path="$sys/lib/hw/bluetooth.default.so"
     pre_hex="007840BB6A48"
     post_hex="002028E06A48"
-    fi
   else
     ui_print "- Only for Android 10, Pie, Oreo and Nougat!"
     abort
