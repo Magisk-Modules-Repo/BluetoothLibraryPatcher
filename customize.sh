@@ -99,6 +99,12 @@ set_vars() {
       pre_hex="88000034E803003228050035"
       post_hex="1F2003D5E8031F2A28050035"
     fi
+  elif [ $API == 25 ] ; then
+    ui_print "- $model on Android Nougat 7.1 detected"
+    mod_path="$MODPATH/system/lib/hw/bluetooth.default.so"
+    sys_path="$sys/lib/hw/bluetooth.default.so"
+    pre_hex="087850BBB548"
+    post_hex="0878BDE0B548"
   elif [ $API == 24 ] ; then
     ui_print "- $model on Android Nougat 7.0 detected"
     mod_path="$MODPATH/system/lib/hw/bluetooth.default.so"
