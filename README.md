@@ -86,3 +86,9 @@ mount -r -o remount /vendor
 
 - Support more devices
 - Misc optimizations
+
+### v2.1
+
+- Android 11 support
+- Android Nougat support
+- Misc optimizations
