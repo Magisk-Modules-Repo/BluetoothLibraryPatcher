@@ -36,8 +36,8 @@ set_vars() {
     ui_print "- $model on Android 11 detected"
     mod_path="$MODPATH/system/lib64/libbluetooth.so"
     sys_path="$sys/lib64/libbluetooth.so"
-    if $qcom && xxd -p $sys_path | tr -d '\n' | grep -iq 88000054691180522925C81A69000037E0030032 ; then
-      pre_hex="88000054691180522925C81A69000037E0030032"
+    if $qcom && xxd -p $sys_path | tr -d '\n' | grep -iq 88000054691180522925C81A6900003720008052 ; then
+      pre_hex="88000054691180522925C81A6900003720008052"
       post_hex="04000014691180522925C81A69000037E0031F2A"
     else
       pre_hex="C8C2683988000034F3031F2AF4031F2A3E000014"
