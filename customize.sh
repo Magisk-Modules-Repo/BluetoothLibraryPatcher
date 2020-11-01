@@ -40,11 +40,11 @@ set_vars() {
       pre_hex="88000054691180522925C81A6900003720008052"
       post_hex="04000014691180522925C81A69000037E0031F2A"
     else
-      pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ........88000034F3031F2AF4031F2A3E000014 | tr '[:lower:]' '[:upper:]'`
+      pre_hex=`xxd -p $sys_path | tr -d '\n' | grep -io ........F3031F2AF4031F2A3E000014 | tr '[:lower:]' '[:upper:]'`
       if [ -z $pre_hex ] ; then
         pre_hex="not_found"
       fi
-      post_hex="2800805288000034F3031F2AF4031F2A45000014"
+      post_hex="1F2003D5F3031F2AF4031F2A3E000014"
     fi
   elif [ $API == 29 ] ; then
     ui_print "- $model on Android 10 detected"
