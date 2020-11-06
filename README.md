@@ -92,3 +92,7 @@ mount -r -o remount /vendor
 - Android 11 support
 - Android Nougat support
 - Misc optimizations
+
+### v2.1.1
+
+- Divers Android 11 fixes
