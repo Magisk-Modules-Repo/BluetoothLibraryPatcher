@@ -8,7 +8,7 @@ set_vars() {
 
   if $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
-    sys="/sbin/.magisk/mirror/system"
+    sys="`magisk --path`/.magisk/mirror/system"
   else
     ui_print "- Recovery installation"
     sys=`find $ANDROID_ROOT -mindepth 1 -maxdepth 2 -path "*system/build.prop" | xargs dirname`
