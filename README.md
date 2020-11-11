@@ -96,3 +96,8 @@ mount -r -o remount /vendor
 ### v2.1.1
 
 - Divers Android 11 fixes
+
+### v2.2
+
+- Large rewrite
+- Detect now OTAs and reapply the patch if needed
