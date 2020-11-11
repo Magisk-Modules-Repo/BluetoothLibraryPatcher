@@ -53,7 +53,6 @@ patchlib() {
   post=`cat $TMPDIR/patch|sed -n '2 p'`
   if [[ $pre == $post ]] ; then
     ui_print "- Library already (system-ly) patched!"
-    abort
   elif /data/adb/magisk/magiskboot hexpatch $mod_path $pre $post ; then
     ui_print "- Successfully patched!"
   else
@@ -62,7 +61,10 @@ patchlib() {
     tar c -f /sdcard/BluetoothLibPatcher-files.tar $libpath $TMPDIR/patch $TMPDIR/debug
     ui_print  " "
     ui_print "- To get support upload BluetoothLibPatcher-files.tar"
-    ui_print 	"  created in your internal storage to the XDA thread"
+    ui_print "  created in your internal storage to github issue or XDA thread"
+	ui_print  " "
+    ui_print  "- Opening support webpage in 5 seconds"
+    (sleep 5 && am start -a android.intent.action.VIEW -d https://github.com/Magisk-Modules-Repo/BluetoothLibraryPatcher/blob/master/SUPPORT.md >/dev/null) &
     abort
   fi
 }
