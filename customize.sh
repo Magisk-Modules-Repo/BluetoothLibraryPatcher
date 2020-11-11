@@ -67,7 +67,14 @@ patchlib() {
   fi
 }
 
+otasurvival() {
+  ui_print "- Creating OTA survival service"
+  cp -f $ZIPFILE $MODPATH
+  sed -i "s|previouslibmd5sum_tmp|previouslibmd5sum=`md5sum $libpath|cut -d ' ' -f1`|" $MODPATH/service.sh         
+}
+
 check
 search
 extract
 patchlib
+otasurvival
