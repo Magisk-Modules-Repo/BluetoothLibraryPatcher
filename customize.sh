@@ -31,7 +31,7 @@ search() {
   unzip -p $ZIPFILE bash.tar.xz|tar x -J -C $TMPDIR bash
   chmod 755 $TMPDIR/bash
   export TMPDIR API IS64BIT libpath
-  # Executed though bash for array handling
+  # Executed through bash for array handling
   $TMPDIR/bash $TMPDIR/hexpatch.sh
 }
 
