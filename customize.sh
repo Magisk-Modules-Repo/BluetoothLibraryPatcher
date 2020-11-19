@@ -58,11 +58,12 @@ patchlib() {
   else
     ui_print "- Library not supported!"
     echo -e "BOOTMODE=$BOOTMODE\nAPI=$API\nIS64BIT=$IS64BIT\nlibpath=$libpath" > $TMPDIR/debug
-    tar c -f /sdcard/BluetoothLibPatcher-files.tar $libpath $TMPDIR/patch $TMPDIR/debug
+    cp -f $libpath $TMPDIR
+    tar c -f /sdcard/BluetoothLibPatcher-files.tar -C $TMPDIR *
     ui_print  " "
     ui_print "- To get support upload BluetoothLibPatcher-files.tar"
     ui_print "  created in your internal storage to github issue or XDA thread"
-	ui_print  " "
+    ui_print  " "
     ui_print  "- Opening support webpage in 5 seconds"
     (sleep 5 && am start -a android.intent.action.VIEW -d https://github.com/Magisk-Modules-Repo/BluetoothLibraryPatcher/blob/master/SUPPORT.md >/dev/null) &
     abort
