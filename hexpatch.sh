@@ -27,11 +27,11 @@ hex=( \
 [329]=88000054691180522925c81a69000037e0030032 [1329]=04000014691180522925c81a69000037e0031f2a \
 [328]=7f1d0071e91700f9e83c0054 [1328]=e0031f2ae91700f9e8010014)
 
-if ! $IS64BIT && [[ $API -ge 28 ]] ; then
-  hex[$variant$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[$variant$API]}`
-elif $qcom && ! `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[$variant$API]}` ; then
+
+if $qcom && ! `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[$variant$API]}` ; then
   variant='1'
-elif ! $qcom && [[ $API -ge 29 ]] ; then
+fi
+if ( ! $IS64BIT && [[ $API -ge 28 ]] ) || ( [[ $variant == 1 ]] && [[ $API -ge 29 ]] ) ; then
   hex[$variant$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[$variant$API]}`
 fi
 if [[ -z ${hex[$variant$API]} ]] ; then
