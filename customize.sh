@@ -24,7 +24,7 @@ check() {
 }
 
 search() {
-  ui_print "- Searching for lib path and relevant hex bytes sequence"
+  ui_print "- Searching for relevant hex byte sequence"
   libpath=`find $sys/lib*|grep -E "\/(libbluetooth|bluetooth\.default)\.so$"|tail -n 1`
   unzip -q $ZIPFILE hexpatch.sh -d $TMPDIR
   chmod 755 $TMPDIR/hexpatch.sh
@@ -53,13 +53,13 @@ patchlib() {
   post=`cat $TMPDIR/patch|sed -n '2 p'`
   if [[ $pre == $post ]] ; then
     ui_print "- Library already (system-ly) patched!"
-  elif /data/adb/magisk/magiskboot hexpatch $mod_path $pre $post ; then
+  elif [[ $pre != not_found ]] && `/data/adb/magisk/magiskboot hexpatch $mod_path $pre $post` ; then
     ui_print "- Successfully patched!"
   else
     ui_print "- Library not supported!"
     echo -e "BOOTMODE=$BOOTMODE\nAPI=$API\nIS64BIT=$IS64BIT\nlibpath=$libpath" > $TMPDIR/debug
     cp -f $libpath $TMPDIR
-    tar c -f /sdcard/BluetoothLibPatcher-files.tar -C $TMPDIR *
+    tar c -f /sdcard/BluetoothLibPatcher-files.tar -C $TMPDIR `ls $TMPDIR|sed -E 's/bash|hexpatch\.sh//g'`
     ui_print  " "
     ui_print "- To get support upload BluetoothLibPatcher-files.tar"
     ui_print "  created in your internal storage to github issue or XDA thread"

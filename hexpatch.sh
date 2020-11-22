@@ -25,8 +25,7 @@ hex=( \
 # qcom
 [330]=88000054691180522925c81a6900003720008052 [1330]=04000014691180522925c81a69000037e0031f2a \
 [329]=88000054691180522925c81a69000037e0030032 [1329]=04000014691180522925c81a69000037e0031f2a \
-[328]=7f1d0071e91700f9e83c0054 [1328]=e0031f2ae91700f9e8010014)
-
+[328]=7f1d0071e91700f9e83c0054 [1328]=e0031f2ae91700f9e8010014 )
 
 if [[ $variant == 2 ]] && ! `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[$variant$API]}` ; then
   variant=1
@@ -41,4 +40,4 @@ if [[ -z ${hex[$variant$API]} ]] ; then
     hex[$variant$API]=not_found
   fi
 fi
-echo -e "${hex[$variant$API]}\n${hex[1$variant$API]}\n$($bb grep -o androidboot.bootloader=.* /proc/cmdline|$bb cut -d ' ' -f1|$bb cut -d '=' -f2)" > $TMPDIR/patch
+echo -e "${hex[$variant$API]}\n${hex[1$variant$API]}\nvariant=$variant\nbl=$($bb grep -o androidboot.bootloader=.* /proc/cmdline|$bb cut -d ' ' -f1|$bb cut -d '=' -f2)" > $TMPDIR/patch
