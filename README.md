@@ -101,3 +101,7 @@ mount -o remount,ro /vendor
 
 - Large rewrite
 - Detect now OTAs and reapply the patch if needed
+
+### v2.2.1
+
+- Misc fixes
