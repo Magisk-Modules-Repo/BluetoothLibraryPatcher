@@ -17,10 +17,10 @@ Either go to [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zi
 Or you can directly execute these commands from a terminal app :
 ```bash
 su
-mount -w -o remount /vendor
+mount -o remount,rw /vendor
 cp --preserve=all /vendor/etc/vintf/manifest.xml /vendor/etc/vintf/manifest.xml.bak
-sed -i /`grep wsm /vendor/etc/vintf/manifest.xml|sed 's@/@\\\/@'|sed 's@>@\\>@g'|sed 's@<@\\<@g'|tr -d ' '`/,/'<hal format="hidl">'/d /vendor/etc/vintf/manifest.xml
-mount -r -o remount /vendor
+sed -i '/<.*security.wsm.*/,/<hal format="hidl">/d' /vendor/etc/vintf/manifest.xml
+mount -o remount,ro /vendor
 ```
 
 
