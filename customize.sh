@@ -8,7 +8,7 @@ check() {
     sys="`magisk --path`/.magisk/mirror/system"
   else
     ui_print "- Recovery installation"
-    sys=`dirname $(find $ANDROID_ROOT -mindepth 1 -maxdepth 2 -path "*system/build.prop")`
+    sys=`dirname $(find / -mindepth 2 -maxdepth 3 -path "*system/build.prop"|head -1)`
   fi
   if ! $samsung ; then
     ui_print "- Only for Samsung devices!"

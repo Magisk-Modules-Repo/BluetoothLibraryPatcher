@@ -28,7 +28,11 @@ hex=( \
 [328]=7f1d0071e91700f9e83c0054 [1328]=e0031f2ae91700f9e8010014 )
 
 if [[ $variant == 3 ]] && ! `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[$variant$API]}` ; then
-  variant=1
+  if `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[1$variant$API]}` ; then
+    hex[$variant$API]=${hex[1$variant$API]}
+  else
+    variant=1
+  fi
 fi
 if ( [[ $variant == 1 ]] && [[ $API -ge 29 ]] ) || ( [[ $variant == 2 ]] && [[ $API -ge 28 ]] ) ; then
   hex[$variant$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[$variant$API]}`
