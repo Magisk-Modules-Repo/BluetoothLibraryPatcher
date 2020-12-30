@@ -105,3 +105,7 @@ mount -o remount,ro /vendor
 ### v2.2.1
 
 - Misc fixes
+
+### v2.2.2
+
+- Fix OTA survival script
