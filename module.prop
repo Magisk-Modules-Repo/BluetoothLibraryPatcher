@@ -1,6 +1,6 @@
 id=BluetoothLibraryPatcher
 name=Bluetooth Library Patcher
-version=v2.2.1
-versionCode=221
+version=v2.2.2
+versionCode=222
 author=3arthur6
 description=Magisk module avoiding loss of bluetooth pairings after reboot or airplane mode switch on rooted samsung devices.
