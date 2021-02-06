@@ -51,9 +51,9 @@ patchlib() {
   ui_print "- Applying patch"
   pre=`cat $TMPDIR/patch|sed -n '1 p'`
   post=`cat $TMPDIR/patch|sed -n '2 p'`
-  if [[ $pre == $post ]] ; then
+  if [[ $pre == already ]] ; then
     ui_print "- Library already (system-ly) patched!"
-  elif [[ $pre != not_found ]] && `/data/adb/magisk/magiskboot hexpatch $mod_path $pre $post` ; then
+  elif [[ ! -z $pre ]] && `/data/adb/magisk/magiskboot hexpatch $mod_path $pre $post` ; then
     ui_print "- Successfully patched!"
   else
     ui_print "- Library not supported!"
