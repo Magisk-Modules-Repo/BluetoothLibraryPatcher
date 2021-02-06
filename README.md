@@ -109,3 +109,7 @@ mount -o remount,ro /vendor
 ### v2.2.2
 
 - Fix OTA survival script
+
+### v2.2.3
+
+- Handle library changes from latest A505FN firmware and possibly others devices
