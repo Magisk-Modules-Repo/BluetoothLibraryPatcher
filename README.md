@@ -18,8 +18,7 @@ Or you can directly execute these commands from a terminal app :
 ```bash
 su
 mount -o remount,rw /vendor
-cp --preserve=all /vendor/etc/vintf/manifest.xml /vendor/etc/vintf/manifest.xml.bak
-sed -i '/<.*security.wsm.*/,/<hal format="hidl">/d' /vendor/etc/vintf/manifest.xml
+i=`grep -lr 'security.wsm' /vendor/etc/vintf` && [ ! -z $i ] && cp --preserve=all $i $i.bak && sed -i '/<.*security.wsm.*/,/<hal format="hidl">/d' $i
 mount -o remount,ro /vendor
 ```
 
