@@ -18,7 +18,7 @@ Or you can directly execute these commands from a terminal app :
 ```bash
 su
 mount -o remount,rw /vendor
-i=`grep -lr 'security.wsm' /vendor/etc/vintf` && [ ! -z $i ] && cp --preserve=all $i $i.bak && sed -i '/<.*security.wsm.*/,/<hal format="hidl">/d' $i
+i=`grep -lr 'security.wsm' /vendor/etc/vintf` && [ ! -z $i ] && [ $i != *.bak ] && cp --preserve=all $i $i.bak && sed -i '/<.*security.wsm.*/,/<hal format="hidl">/d' $i
 mount -o remount,ro /vendor
 ```
 
