@@ -44,9 +44,9 @@ fi
 if [[ -z ${hex[$variant$API]} ]] ; then
   if `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[1$variant$API]}` ; then
     hex[$variant$API]=already
-  elif [[ $variant == 1 ]] && hex[4$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[4$API]}` && [[ ! -z ${hex[4$API]} ]] ; then
+  elif [[ $variant == 1 ]] && hex[4$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[4$API]}` && [[ ! -z ${hex[4$API]} ]] ; then
     variant=4
-  elif [[ $variant == 2 ]] && hex[5$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[5$API]}` && [[ ! -z ${hex[5$API]} ]] ; then
+  elif [[ $variant == 2 ]] && hex[5$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[5$API]}` && [[ ! -z ${hex[5$API]} ]] ; then
     variant=5
   fi
 fi
