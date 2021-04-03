@@ -60,7 +60,7 @@ patchlib() {
     ui_print "- Library not supported!"
     echo -e "BOOTMODE=$BOOTMODE\nAPI=$API\nIS64BIT=$IS64BIT\nlibpath=$libpath" > $TMPDIR/debug
     cp -f $libpath $TMPDIR
-    tar c -f /sdcard/BluetoothLibPatcher-files.tar -C $TMPDIR `ls $TMPDIR|sed -E 's/bash|hexpatch\.sh//g'`
+    tar c -f /sdcard/BluetoothLibPatcher-files.tar -C $TMPDIR `ls $TMPDIR|sed -E '/bash|hexpatch\.sh/d'`
     ui_print  " "
     ui_print "- To get support upload BluetoothLibPatcher-files.tar"
     ui_print "  created in your internal storage to github issue or XDA thread"
