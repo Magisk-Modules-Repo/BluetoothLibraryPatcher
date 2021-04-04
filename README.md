@@ -14,6 +14,8 @@ To fix Galaxy Wearable pairing issue, as the modifcations aren't applicable thro
 
 Either go to [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735) twrp flashable zip.
 
+/!\ S21 serie owner need the twrp zip (for vendor partition resizing), terminal commands below could brick your device /!\
+
 Or you can directly execute these commands from a terminal app :
 ```bash
 su
@@ -26,6 +28,7 @@ mount -o remount,ro /vendor
 ## Credits
 
 • @topjohnwu for magisk and magiskboot used here for its easy-to-use hexpatcher
+• @afaneh92 for the vendor resizing script needed with S21 serie​ (used in the twrp zip)
 
 ## Source code
 
