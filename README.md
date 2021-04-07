@@ -4,11 +4,9 @@
 
 This module attends to avoid losing bluetooth pairings after reboot or airplane mode switch on rooted samsung devices.
 
-It patches on the fly the bluetooth library and should support most of samsung devices on android Oreo, Pie, 10 and 11.
+It patches on the fly the bluetooth library and should support most of samsung devices on android Nougat, Oreo, Pie, 10 and 11.
 
 This patch is NOT applicable with an aosp rom, only samsung stock/based.
-
-In case installation fails, please upload the BluetoothLibPatcher-files.tar created in your internal storage to the XDA thread.
 
 To fix Galaxy Wearable pairing issue, as the modifcations aren't applicable through Magisk :
 
@@ -16,7 +14,7 @@ Either go to [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zi
 
 /!\ S21 serie owner need the twrp zip (for vendor partition resizing), terminal commands below could brick your device /!\
 
-Or you can directly execute these commands from a terminal app :
+Or you can directly execute these commands from a terminal app, one line after another, then reboot :
 ```bash
 su
 mount -o remount,rw /vendor
@@ -24,11 +22,10 @@ i=`grep -lr 'security.wsm' /vendor/etc/vintf` && [ ! -z $i ] && [ $i != *.bak ] 
 mount -o remount,ro /vendor
 ```
 
-
 ## Credits
 
-• @topjohnwu for magisk and magiskboot used here for its easy-to-use hexpatcher
-• @afaneh92 for the vendor resizing script needed with S21 serie​ (used in the twrp zip)
+- @topjohnwu for magisk and magiskboot used here for its easy-to-use hexpatcher
+- @afaneh92 for the vendor resizing script needed with S21 serie​ (used in the twrp zip)
 
 ## Source code
 
