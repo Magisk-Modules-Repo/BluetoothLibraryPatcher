@@ -29,7 +29,7 @@ hex=( \
 # what is happening samsung
 [429]=....0034f3031f2af4031f2a....0014 [1429]=1f2003d5f3031f2af4031f2a47000014 \
 # what again (T510)
-[529]=..b1002400254ae0 [1529]=0020024002556e0 )
+[529]=..b1002400254ae0 [1529]=00200024002556e0 )
 
 if [[ $variant == 3 ]] && ! `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[$variant$API]}` ; then
   if `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[1$variant$API]}` ; then
