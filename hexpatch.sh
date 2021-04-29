@@ -29,7 +29,9 @@ hex=( \
 # what is happening samsung
 [429]=....0034f3031f2af4031f2a....0014 [1429]=1f2003d5f3031f2af4031f2a47000014 \
 # what again (T510)
-[529]=..b1002400254ae0 [1529]=00200024002556e0 )
+[529]=44387810b1002400254ae0 [1529]=44387800200024002556e0 \
+# ... (T595)
+[629]=90387810b1002400254ae0 [1629]=90387800200024002558e0 )
 
 if [[ $variant == 3 ]] && ! `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[$variant$API]}` ; then
   if `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[1$variant$API]}` ; then
@@ -46,8 +48,12 @@ if [[ -z ${hex[$variant$API]} ]] ; then
     hex[$variant$API]=already
   elif [[ $variant == 1 ]] && hex[4$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[4$API]}` && [[ ! -z ${hex[4$API]} ]] ; then
     variant=4
-  elif [[ $variant == 2 ]] && hex[5$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[5$API]}` && [[ ! -z ${hex[5$API]} ]] ; then
-    variant=5
+  elif [[ $variant == 2 ]] ; then
+    if [[ ! -z ${hex[5$API]} ]] && `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[5$API]}` ; then
+      variant=5
+    elif [[ ! -z ${hex[6$API]} ]] && `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[6$API]}` ; then
+      variant=6
+    fi
   fi
 fi
 echo -e "${hex[$variant$API]}\n${hex[1$variant$API]}\nvariant=$variant\nbl=$($bb grep -o androidboot.bootloader=.* /proc/cmdline|$bb cut -d ' ' -f1|$bb cut -d '=' -f2)" > $TMPDIR/patch
