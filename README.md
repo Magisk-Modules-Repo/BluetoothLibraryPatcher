@@ -8,24 +8,25 @@ It patches on the fly the bluetooth library and should support most of samsung d
 
 This patch is NOT applicable with an aosp rom, only samsung stock/based.
 
-To fix Galaxy Wearable pairing issue, as the modifcations aren't applicable through Magisk :
+## Galaxy Watch devices support
 
-Either go to [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735) twrp flashable zip.
+Due to limitations in Magisk, a manual step is required to fix pairing issues with Galaxy Watch devices. After installing the Magisk module, use a command line (like Terminal Emulator or Termux) to run the following commands, then reboot:
 
-/!\ S21 serie owner need the twrp zip (for vendor partition resizing), terminal commands below could brick your device /!\
+*Beware! /!\ Owners of the S21 series cannot use these commands (or you have to be SURE your vendor partition isn't read only or full) and must instead use the zip bellow to flash using TWRP. The commands below could brick your device /!\*
 
-Or you can directly execute these commands from a terminal app, one line after another, then reboot :
 ```bash
-su
-mount -o remount,rw /vendor
-i=`grep -lr 'security.wsm' /vendor/etc/vintf` && [ ! -z $i ] && [ $i != *.bak ] && cp --preserve=all $i $i.bak && sed -i '/<.*security.wsm.*/,/<hal format="hidl">/d' $i
-mount -o remount,ro /vendor
+$ su
+$ mount -o remount,rw /vendor
+$ i=`grep -lr 'security.wsm' /vendor/etc/vintf` && [ ! -z $i ] && [ $i != *.bak ] && cp --preserve=all $i $i.bak && sed -i '/<.*security.wsm.*/,/<hal format="hidl">/d' $i
+$ mount -o remount,ro /vendor
 ```
+
+Alternatively, instead of installing the Magisk module and running the commands, flash the zip file (BluetoothLibraryPatcher_X.X.X.zip​) meant for TWRP recovery found on [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735) under 'Links'.
 
 ## Credits
 
-- @topjohnwu for magisk and magiskboot used here for its easy-to-use hexpatcher
-- @afaneh92 for the vendor resizing script needed with S21 serie​ (used in the twrp zip)
+- @topjohnwu for magisk
+- @afaneh92 for the partition resizing script
 
 ## Source code
 
