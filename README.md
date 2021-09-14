@@ -4,7 +4,7 @@
 
 This module attends to avoid losing bluetooth pairings after reboot or airplane mode switch on rooted samsung devices.
 
-It patches on the fly the bluetooth library and should support most of samsung devices on android Nougat, Oreo, Pie, 10 and 11.
+It patches on the fly the bluetooth library and should support most of samsung devices on android Nougat, Oreo, Pie, 10, 11 and 12.
 
 This patch is NOT applicable with an aosp rom, only samsung stock/based.
 
@@ -113,3 +113,8 @@ Alternatively, instead of installing the Magisk module and running the commands,
 ### v2.2.3
 
 - Handle library changes from latest A505FN firmware and possibly others devices
+
+### v2.3
+
+- Android 12 support
+- Handle few specific devices
