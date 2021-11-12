@@ -118,3 +118,8 @@ Alternatively, instead of installing the Magisk module and running the commands,
 
 - Android 12 support
 - Handle few specific devices
+
+### v2.3.1
+
+- Fix qcoms on Android 12
+- Add A105F on Android 11
