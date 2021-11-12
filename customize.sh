@@ -25,25 +25,25 @@ check() {
 
 search() {
   ui_print "- Searching for relevant hex byte sequence"
-  libpath=`find $sys/lib*|grep -E "\/(libbluetooth|bluetooth\.default)\.so$"|tail -n 1`
+  lib=`find $sys/lib*|grep -E "\/(libbluetooth|bluetooth\.default)\.so$"|tail -n 1`
   unzip -q $ZIPFILE hexpatch.sh -d $TMPDIR
   chmod 755 $TMPDIR/hexpatch.sh
   unzip -p $ZIPFILE bash.tar.xz|tar x -J -C $TMPDIR bash
   chmod 755 $TMPDIR/bash
-  export TMPDIR API IS64BIT libpath
+  export TMPDIR API IS64BIT lib
   # Executed through bash for array handling
   $TMPDIR/bash $TMPDIR/hexpatch.sh
 }
 
 extract() {
-  if [ ! -f $libpath ] ; then
+  if [ ! -f $lib ] ; then
     ui_print "- Library not found!"
     abort
   else
     ui_print "- Copying library from system to module"
-    mod_path="$MODPATH/`echo $libpath|grep -o system.*`"
+    mod_path="$MODPATH/`echo $lib|grep -o system.*`"
     mkdir -p `dirname $mod_path`
-    cp -af $libpath $mod_path
+    cp -af $lib $mod_path
   fi
 }
 
@@ -58,8 +58,8 @@ patchlib() {
     ui_print "- Successfully patched!"
   else
     ui_print "- Library not supported!"
-    echo -e "BOOTMODE=$BOOTMODE\nAPI=$API\nIS64BIT=$IS64BIT\nlibpath=$libpath" > $TMPDIR/debug
-    cp -f $libpath $TMPDIR
+    echo -e "BOOTMODE=$BOOTMODE\nAPI=$API\nIS64BIT=$IS64BIT\nlib=$lib" > $TMPDIR/debug
+    cp -f $lib $TMPDIR
     tar c -f /sdcard/BluetoothLibPatcher-files.tar -C $TMPDIR `ls $TMPDIR|sed -E '/bash|hexpatch\.sh/d'`
     ui_print  " "
     ui_print "- To get support upload BluetoothLibPatcher-files.tar"
@@ -75,7 +75,7 @@ patchlib() {
 otasurvival() {
   ui_print "- Creating OTA survival service"
   cp -f $ZIPFILE $MODPATH
-  sed -i "s|previouslibmd5sum_tmp|previouslibmd5sum=`md5sum $libpath|cut -d ' ' -f1`|" $MODPATH/service.sh         
+  sed -i "s|previouslibmd5sum_tmp|previouslibmd5sum=`md5sum $lib|cut -d ' ' -f1`|" $MODPATH/service.sh         
 }
 
 check

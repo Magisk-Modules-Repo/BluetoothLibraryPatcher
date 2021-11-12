@@ -6,7 +6,7 @@ bb=/data/adb/magisk/busybox
 qcom=`$bb grep -qw androidboot.hardware=qcom /proc/cmdline && echo 'true' || echo 'false'`
 
 # default(mostly arm64 exynos)=1   arm=2   qcom=3
-variant=`if ! $IS64BIT || [[ $API -le 25 ]]; then echo 2; elif $qcom && [[ $API -le 30 ]]; then echo 3; else echo 1; fi`
+var=`if ! $IS64BIT || [[ $API -le 25 ]]; then echo 2; elif $qcom && [[ $API -le 30 ]]; then echo 3; else echo 1; fi`
 
 hex=( \
 # default
@@ -36,27 +36,27 @@ hex=( \
 # ... (T595)
 [629]=90387810b1002400254ae0 [1629]=90387800200024002558e0 )
 
-if [[ $variant == 3 ]] && ! `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[$variant$API]}` ; then
-  if `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[1$variant$API]}` ; then
-    hex[$variant$API]=already
+if [[ $var == 3 ]] && ! `$bb xxd -p $lib|$bb tr -d '\n'|$bb grep -qm1 ${hex[$var$API]}` ; then
+  if `$bb xxd -p $lib|$bb tr -d '\n'|$bb grep -qm1 ${hex[1$var$API]}` ; then
+    hex[$var$API]=already
   else
-    variant=1
+    var=1
   fi
 fi
-if ( [[ $variant == 1 ]] && [[ $API -ge 29 ]] ) || ( [[ $variant == 2 ]] && [[ $API -ge 28 ]] ) ; then
-  hex[$variant$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[$variant$API]}`
+if ( [[ $var == 1 ]] && [[ $API -ge 29 ]] ) || ( [[ $var == 2 ]] && [[ $API -ge 28 ]] ) ; then
+  hex[$var$API]=`$bb xxd -p $lib|$bb tr -d '\n'|$bb grep -om1 ${hex[$var$API]}`
 fi
-if [[ -z ${hex[$variant$API]} ]] ; then
-  if `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[1$variant$API]}` ; then
-    hex[$variant$API]=already
-  elif [[ $variant == 1 ]] && hex[4$API]=`$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -om1 ${hex[4$API]}` && [[ ! -z ${hex[4$API]} ]] ; then
-    variant=4
-  elif [[ $variant == 2 ]] ; then
-    if [[ ! -z ${hex[5$API]} ]] && `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[5$API]}` ; then
-      variant=5
-    elif [[ ! -z ${hex[6$API]} ]] && `$bb xxd -p $libpath|$bb tr -d '\n'|$bb grep -qm1 ${hex[6$API]}` ; then
-      variant=6
+if [[ -z `$bb xxd -p $lib|$bb tr -d '\n'|$bb grep -om1 ${hex[$var$API]}` ]] ; then
+  if `$bb xxd -p $lib|$bb tr -d '\n'|$bb grep -qm1 ${hex[1$var$API]}` ; then
+    hex[$var$API]=already
+  elif [[ $var == 1 ]] && [[ $API == 29 ]] && hex[4$API]=`$bb xxd -p $lib|$bb tr -d '\n'|$bb grep -om1 ${hex[4$API]}` && [[ ! -z ${hex[4$API]} ]] ; then
+    var=4
+  elif [[ $var == 2 ]] && [[ $API -ge 29 ]] ; then
+    if `$bb xxd -p $lib|$bb tr -d '\n'|$bb grep -qm1 ${hex[5$API]}` ; then
+      var=5
+    elif `$bb xxd -p $lib|$bb tr -d '\n'|$bb grep -qm1 ${hex[6$API]}` ; then
+      var=6
     fi
   fi
 fi
-echo -e "${hex[$variant$API]}\n${hex[1$variant$API]}\nvariant=$variant\nbl=$($bb grep -o androidboot.bootloader=.* /proc/cmdline|$bb cut -d ' ' -f1|$bb cut -d '=' -f2)" > $TMPDIR/patch
+echo -e "${hex[$var$API]}\n${hex[1$var$API]}\nvar=$var\nbl=$($bb grep -o androidboot.bootloader=.* /proc/cmdline|$bb cut -d ' ' -f1|$bb cut -d '=' -f2)" > $TMPDIR/patch
