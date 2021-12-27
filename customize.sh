@@ -28,10 +28,10 @@ search() {
   lib=`find $sys/lib*|grep -E "\/(libbluetooth|bluetooth\.default)\.so$"|tail -n 1`
   unzip -q $ZIPFILE hexpatch.sh -d $TMPDIR
   chmod 755 $TMPDIR/hexpatch.sh
+  # Executed through bash for array handling
   unzip -p $ZIPFILE bash.tar.xz|tar x -J -C $TMPDIR bash
   chmod 755 $TMPDIR/bash
   export TMPDIR API IS64BIT lib
-  # Executed through bash for array handling
   $TMPDIR/bash $TMPDIR/hexpatch.sh
 }
 
@@ -74,7 +74,7 @@ patchlib() {
 
 otasurvival() {
   ui_print "- Creating OTA survival service"
-  cp -f $ZIPFILE $MODPATH
+  cp -f $ZIPFILE $MODPATH/module.zip
   sed -i "s|previouslibmd5sum_tmp|previouslibmd5sum=`md5sum $lib|cut -d ' ' -f1`|" $MODPATH/service.sh         
 }
 
