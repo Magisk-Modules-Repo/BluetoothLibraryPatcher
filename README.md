@@ -17,11 +17,11 @@ Due to limitations in Magisk, a manual step is required to fix pairing issues wi
 ```bash
 $ su
 $ mount -o remount,rw /vendor
-$ i=`grep -lr 'security.wsm' /vendor/etc/vintf` && [ ! -z $i ] && [ $i != *.bak ] && cp --preserve=all $i $i.bak && sed -i '/<.*security.wsm.*/,/<hal format="hidl">/d' $i
+$ i=`grep -lr 'security.wsm' /vendor/etc/vintf` && [ ! -z $i ] && [ $i != *.bak ] && cp --preserve=all $i $i.bak && sed -i "$((`awk '/security.wsm/ {print FNR}' $i`-1)),/<\/hal>/d" $i
 $ mount -o remount,ro /vendor
 ```
 
-Alternatively, instead of installing the Magisk module and running the commands, flash the zip file (BluetoothLibraryPatcher_X.X.X.zip​) meant for TWRP recovery found on [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735) under 'Links'.
+Alternatively, instead of installing the Magisk module and running the commands, flash the zip file (BluetoothLibraryPatcher_twrp_X.X.X.zip​) meant for TWRP recovery found on [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735) under 'Links'.
 
 ## Credits
 
