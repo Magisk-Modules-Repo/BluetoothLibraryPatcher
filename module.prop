@@ -4,3 +4,4 @@ version=v2.3.1
 versionCode=231
 author=3arthur6
 description=Magisk module avoiding loss of bluetooth pairings after reboot or airplane mode switch on rooted samsung devices.
+updateJson=https://raw.githubusercontent.com/3arthur6/BluetoothLibraryPatcher/master/update.json
