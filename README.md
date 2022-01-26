@@ -1,5 +1,9 @@
 # Bluetooth Library Patcher
 
+## EOL of Magisk modules repo
+
+For support and latest updates, go to [my personnal gitub repo](https://github.com/3arthur6/BluetoothLibraryPatcher)
+
 ## Description
 
 This module attends to avoid losing bluetooth pairings after reboot or airplane mode switch on rooted samsung devices.
@@ -123,3 +127,9 @@ Alternatively, instead of installing the Magisk module and running the commands,
 
 - Fix qcoms on Android 12
 - Add A105F on Android 11
+
+### v2.3.2
+
+- Final release on Magisk modules repo
+- Update for Magisk v24.0
+- Misc updates
